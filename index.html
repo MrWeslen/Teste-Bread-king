@@ -66,6 +66,7 @@
   .success{ color:#87f58a; } .error{ color:#ff8b8b; }
   .foot{ opacity:.8; font-size:.95rem; margin-top:6px; }
 
+
   /* overlay “obrigado” */
   .overlay{
     position:fixed; inset:0; display:none; place-items:center;
@@ -81,6 +82,53 @@
   @media (max-width:720px){
     .buttons{ grid-template-columns:1fr; }
   }
+
+  /* corpo ocupa a tela toda e sem rolagem */
+html,body{height:100%;margin:0}
+body{min-height:100svh;overflow:hidden;position:relative}
+
+/* marca d'água da logo (troque o caminho se precisar) */
+body::before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none;
+  background:
+    radial-gradient(1200px 800px at 20% 10%, rgba(0,0,0,.08), transparent 60%),
+    radial-gradient(1200px 800px at 80% 90%, rgba(0,0,0,.08), transparent 60%),
+    url("logo.png") center 20% / clamp(220px, 36vw, 420px) no-repeat;
+  opacity:.22;   /* intensidade da logo de fundo */
+  filter: drop-shadow(0 12px 28px rgba(0,0,0,.25));
+}
+
+/* some a logo de cima se você tiver <img> no topo */
+.brand{display:none}
+
+/* área útil centralizada e compacta */
+.wrap{
+  min-height:100svh; display:grid; place-items:end center;
+  padding: min(2.2vh, 16px);
+}
+.panel{
+  background:#8b0e0e; box-shadow:none;
+  border-radius:20px; padding:min(2vh,16px);
+  width:min(980px,96vw);
+}
+.title{ margin:0 0 min(1.2vh,10px); font-size:clamp(16px,2.2vw,22px) }
+.buttons{
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:min(1.4vh,12px);
+}
+.btn{
+  min-height:min(8svh,60px);
+  padding:min(1.6vh,14px) min(1.4vh,12px);
+  font-size:clamp(14px,2vw,18px);
+  border-radius:16px; box-shadow:0 6px 14px rgba(0,0,0,.20);
+}
+@media (max-width:700px){
+  .buttons{grid-template-columns:1fr}
+  .btn{min-height:min(9svh,64px)}
+}
+
+  
 </style>
 </head>
 <body>
@@ -104,6 +152,8 @@
 
   <div class="overlay" id="overlay"><div class="toast">Obrigado! Resposta registrada.</div></div>
 
+
+  
 <script>
   // ==== CONFIGURE AQUI ====
   const ENDPOINT  = "https://script.google.com/macros/s/AKfycbxNGGAA3VCJ_iZpFeToWcOwwFo_rDw8B5UjlInbIwCgi_CNJt3voAOCE-koTjzxu5KJ7w/exec"; // URL do Apps Script
